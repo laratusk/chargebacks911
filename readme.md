@@ -1,5 +1,269 @@
 https://apidoc.chargebacks911.com/documentation
 
+## Installation
+
+```bash
+composer require laratusk/chargebacks911
+```
+
+Publish the config file:
+
+```bash
+php artisan vendor:publish --tag=chargeback-config
+```
+
+Add the following to your `.env`:
+
+```env
+CHARGEBACK_ENABLED=true
+CHARGEBACK_URL=https://api.chargebacks911.com/v2
+CHARGEBACK_USERNAME=your-username
+CHARGEBACK_PASSWORD=your-password
+```
+
+## Usage
+
+### Merchant Info
+
+```php
+use Laratusk\Chargebacks911\ChargeBack;
+
+// Get full merchant payload
+$merchant = ChargeBack::merchant();
+
+// Get a specific field
+$merchantId = ChargeBack::merchant('id');
+```
+
+### Orders
+
+#### List orders
+
+```php
+$orders = ChargeBack::orders()->list();
+
+// With filters
+$orders = ChargeBack::orders()->list(params: [
+    'start_date' => '2024-01-01',
+    'end_date'   => '2024-12-31',
+]);
+```
+
+#### Add an order
+
+```php
+use Laratusk\Chargebacks911\ChargeBack;
+use Laratusk\Chargebacks911\Generics\Order;
+use Laratusk\Chargebacks911\Generics\Transaction;
+use Laratusk\Chargebacks911\Generics\Billing;
+use Laratusk\Chargebacks911\Generics\Address;
+use Laratusk\Chargebacks911\Generics\Card;
+
+$transaction = new Transaction([
+    'id'                 => 'TXN-001',
+    'mid'                => '21226255',
+    'settlement_amount'  => '99.99',
+    'settlement_date'    => '2024-06-01',
+    'status'             => 'Approved',
+    'card'               => new Card([
+        'type'      => 'Visa',
+        'number'    => '411111xxxxxx1111',
+        'exp_month' => '12',
+        'exp_year'  => '2026',
+    ]),
+]);
+
+$order = new Order([
+    'id'             => 'ORD-001',
+    'date'           => '2024-06-01',
+    'total_amount'   => 99.99,
+    'total_currency' => 'USD',
+    'transactions'   => [$transaction],
+    'billing'        => new Billing([
+        'contact_first_name' => 'Jane',
+        'contact_last_name'  => 'Doe',
+        'email'              => 'jane@example.com',
+        'address'            => new Address([
+            'street'   => '123 Main St',
+            'city'     => 'Tampa',
+            'state'    => 'FL',
+            'postcode' => '33601',
+            'country'  => 'US',
+        ]),
+    ]),
+]);
+
+$uid = ChargeBack::orders()->add($order);
+```
+
+#### Update an order (PUT — full replace)
+
+```php
+ChargeBack::orders()->updatePut($order);
+```
+
+#### Update an order (PATCH — partial update)
+
+```php
+$uid = ChargeBack::orders()->updatePatch($order, 'existing-uid');
+```
+
+### Chargebacks
+
+#### List chargebacks
+
+```php
+$chargebacks = ChargeBack::chargebacks()->list();
+
+// With filters (paginated, max 2500 per page)
+$chargebacks = ChargeBack::chargebacks()->list([
+    'start_date' => '2024-01-01',
+    'end_date'   => '2024-12-31',
+    'status'     => 'new',
+    'page'       => 1,
+]);
+
+foreach ($chargebacks as $chargeback) {
+    echo $chargeback->case_no;
+    echo $chargeback->status;
+    echo $chargeback->dispute_amount;
+}
+
+// Paginate until no records remain
+$page = 1;
+do {
+    $results = ChargeBack::chargebacks()->list(['page' => $page++]);
+} while ($results->isNotEmpty());
+```
+
+### Alerts
+
+#### List alerts
+
+```php
+$alerts = ChargeBack::alerts()->list();
+
+// With filters
+$alerts = ChargeBack::alerts()->list([
+    'date_start' => '2024-01-01',
+    'date_end'   => '2024-12-31',
+    'type'       => 'vmpi',
+    'completed'  => 0,
+    'page'       => 1,
+]);
+
+foreach ($alerts as $alert) {
+    echo $alert->id;
+    echo $alert->amount;
+    echo $alert->type;
+}
+```
+
+#### Update an alert
+
+```php
+use Laratusk\Chargebacks911\Generics\AlertUpdate;
+
+$update = new AlertUpdate([
+    'outcome_id'    => 3,           // required
+    'order_id'      => 'ORD-001',
+    'refund_amount' => 99.99,
+]);
+
+$result = ChargeBack::alerts()->update('alert-id-123', $update);
+```
+
+### Alert Outcomes
+
+```php
+$outcomes = ChargeBack::alertOutcomes()->list();
+
+// With filters
+$outcomes = ChargeBack::alertOutcomes()->list([
+    'is_refund' => true,
+    'is_valid'  => true,
+]);
+```
+
+### Webhooks
+
+#### List webhooks
+
+```php
+$webhooks = ChargeBack::webhooks()->list();
+```
+
+#### Show a single webhook
+
+```php
+$webhook = ChargeBack::webhooks()->show('webhook-id-123');
+```
+
+#### Register a webhook
+
+```php
+use Laratusk\Chargebacks911\Enums\Event;
+
+$webhook = ChargeBack::webhooks()->add(
+    Event::CASE_CREATED,
+    'https://your-app.example.com/webhooks/chargebacks'
+);
+```
+
+Available events:
+
+| Constant | Value |
+|---|---|
+| `Event::ALERT_CREATED` | `ALERT_CREATED` |
+| `Event::ALERT_STATUS_CHANGED` | `ALERT_STATUS_CHANGED` |
+| `Event::CASE_CREATED` | `CASE_CREATED` |
+| `Event::CASE_STATUS_CHANGED` | `CASE_STATUS_CHANGED` |
+| `Event::CASE_VERDICT_CHANGED` | `CASE_VERDICT_CHANGED` |
+| `Event::DOC_VALIDATION_ERROR` | `DOC_VALIDATION_ERROR` |
+| `Event::ERT_CREATED` | `ERT_CREATED` |
+| `Event::ERT_RESOLVED` | `ERT_RESOLVED` |
+
+#### Update a webhook endpoint
+
+```php
+$webhook = ChargeBack::webhooks()->update('webhook-id-123', 'https://your-app.example.com/new-endpoint');
+```
+
+#### Delete a webhook
+
+```php
+ChargeBack::webhooks()->delete('webhook-id-123');
+```
+
+#### Send a test event
+
+```php
+ChargeBack::webhooks()->test('webhook-id-123');
+```
+
+### Exception Handling
+
+```php
+use Laratusk\Chargebacks911\Exceptions\AuthenticationException;
+use Laratusk\Chargebacks911\Exceptions\NotFoundException;
+use Laratusk\Chargebacks911\Exceptions\RateLimitException;
+use Laratusk\Chargebacks911\Exceptions\ApiException;
+
+try {
+    $chargebacks = ChargeBack::chargebacks()->list();
+} catch (AuthenticationException $e) {
+    // 401 — invalid credentials
+} catch (NotFoundException $e) {
+    // 404 — resource not found
+} catch (RateLimitException $e) {
+    // 429 — too many requests
+} catch (ApiException $e) {
+    // other API errors
+}
+```
+
+---
+
 ## Add Orders
 
 This allows the merchant to upload orders into our platform. The structured JSON schema in the request body ensures clarity and precision in conveying essential order details while allowing flexibility in what data elements are conveyed to our platform. Users can efficiently contribute new order information to enhance the platform's transactional insights
