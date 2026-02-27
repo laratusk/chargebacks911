@@ -1,0 +1,55 @@
+{
+    "success": true,
+    "code": 200,
+    "message": "OK",
+    "data": [
+        {
+            "arn": "98278274829743294525435",
+            "auth_no": "E48394",
+            "b_address": "123 Main Street",
+            "b_city": "Tampa",
+            "b_state": "Florida",
+            "b_zip": "33635",
+            "card_bin": "438493",
+            "card_last_four": "5345",
+            "case_no": "EC2833",
+            "case_type": "First Chargeback",
+            "cc_type": "Visa",
+            "crm_gateway_id": 74,
+            "currency": "USD",
+            "date_due": "2020-02-14",
+            "date_post": "2020-02-01",
+            "date_trans": "2020-01-15",
+            "date_updated": "2020-02-01",
+            "descriptor": "ABC Company",
+            "disputed_amount": "49.99",
+            "fname": "Nick",
+            "id": "93849384",
+            "lname": "Desai",
+            "mid": "21226255",
+            "mid_alias": "Main Account",
+            "order_api_generated": 0,
+            "order_id": "ORM-27335",
+            "platform_id": 45,
+            "platform_name": "Merchant SFTP",
+            "reason_category": "Unauthorized transaction",
+            "reason_code": "4837",
+            "reference_number": 29833289,
+            "status": "Completed",
+            "status_history": [
+                {
+                    "date": "2020-02-01 17:30:09",
+                    "status": "Completed"
+                }
+            ],
+            "uid": "09uQAi09u0asjv",
+            "verdict": "Win",
+            "verdict_history": [
+                {
+                    "date": "2020-02-01 17:30:09",
+                    "verdict": "Win"
+                }
+            ]
+        }
+    ]
+}

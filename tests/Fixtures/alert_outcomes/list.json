@@ -1,0 +1,21 @@
+{
+    "success": true,
+    "code": 200,
+    "message": "OK",
+    "data": [
+        {
+            "id": "1",
+            "name": "Already Refunded",
+            "is_refund": "1",
+            "is_valid": "1",
+            "label": "success"
+        },
+        {
+            "id": "2",
+            "name": "Refunded",
+            "is_refund": "1",
+            "is_valid": "1",
+            "label": "success"
+        }
+    ]
+}

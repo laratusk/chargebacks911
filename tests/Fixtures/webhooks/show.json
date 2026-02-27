@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "code": 200,
+    "message": "OK",
+    "data": {
+        "id": "webhook_abc123",
+        "event": "CASE_CREATED",
+        "endpoint": "https://example.com/webhook",
+        "status": "active"
+    }
+}

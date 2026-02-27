@@ -1,0 +1,13 @@
+{
+    "success": true,
+    "code": 200,
+    "message": "OK",
+    "data": [
+        {
+            "id": "12345",
+            "name": "Test Merchant",
+            "mid": "21226255",
+            "status": "active"
+        }
+    ]
+}

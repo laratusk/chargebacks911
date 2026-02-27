@@ -1,0 +1,25 @@
+{
+    "success": true,
+    "code": 200,
+    "message": "OK",
+    "data": {
+        "alert_age": "",
+        "amount": "49.98",
+        "arn": "98278274829743294525435",
+        "auth_code": "897654",
+        "case_id": "PS14111",
+        "cb_case_id": "1258229",
+        "cc_num": "411111xxxxxx1111",
+        "client_id": "1",
+        "completed_date": "2018-09-24 05:01:44",
+        "currency": "1",
+        "customer_email": "rsmith@gmail.com",
+        "customer_name": "Benjamin Burnley",
+        "id": "1",
+        "mid": "4635253543",
+        "order_id": "A3D8F224",
+        "outcome_id": "4",
+        "refund_amount": "99.99",
+        "refund_id": "3729934"
+    }
+}

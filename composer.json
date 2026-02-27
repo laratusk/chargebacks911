@@ -1,0 +1,69 @@
+{
+    "name": "laratusk/chargebacks911",
+    "version": "1.0.0",
+    "description": "ChargeBack 911 integration for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "role": "Developer",
+            "name": "Azer Mammedov",
+            "email": "mamedovazer124@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Laratusk\\Chargebacks911\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laratusk\\Chargebacks911\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^12.0|^11.0|^10.0",
+        "illuminate/http": "^12.0|^11.0|^10.0",
+        "illuminate/cache": "^12.0|^11.0|^10.0"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.0",
+        "orchestra/testbench": "^9.0|^8.3",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "rector/rector": "^2.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Laratusk\\Chargebacks911\\Providers\\ChargeBackServiceProvider"
+            ]
+        }
+    },
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "lint": "vendor/bin/pint",
+        "lint-check": "vendor/bin/pint --test",
+        "analyse": "vendor/bin/phpstan analyse",
+        "rector": "vendor/bin/rector process",
+        "rector-check": "vendor/bin/rector process --dry-run",
+        "quality": [
+            "@lint-check",
+            "@analyse",
+            "@rector-check",
+            "@test"
+        ]
+    }
+}

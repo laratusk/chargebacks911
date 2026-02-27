@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "code": 200,
+    "message": "OK",
+    "data": {
+        "uid": "1415516",
+        "id": "12857385745",
+        "date": "2018-01-09",
+        "total_amount": 199.95
+    }
+}
