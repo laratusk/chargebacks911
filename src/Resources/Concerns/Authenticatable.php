@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Laratusk\Chargebacks911\Exceptions\ApiException;
 use Laratusk\Chargebacks911\Exceptions\AuthenticationException;
+use Laratusk\Chargebacks911\Exceptions\ChargebackException;
 use Laratusk\Chargebacks911\Exceptions\NotFoundException;
 use Laratusk\Chargebacks911\Exceptions\RateLimitException;
 
@@ -67,7 +68,7 @@ trait Authenticatable
         return rtrim((string) config('chargeback.url'), '/').'/'.ltrim($path, '/');
     }
 
-    protected function buildException(Response $response): \Laratusk\Chargebacks911\Exceptions\ChargebackException
+    protected function buildException(Response $response): ChargebackException
     {
         $status = $response->status();
         $message = $response->json('message') ?? 'Unknown error';

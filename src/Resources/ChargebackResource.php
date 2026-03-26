@@ -48,7 +48,7 @@ final class ChargebackResource
         $response = Http::withToken($this->bearerToken())->get($endpoint, $params);
 
         if ($response->successful()) {
-            return $response->collect('data')->map(fn ($item): \Laratusk\Chargebacks911\Generics\ChargeResponse => new ChargeResponse($item));
+            return $response->collect('data')->map(fn ($item): ChargeResponse => new ChargeResponse($item));
         }
 
         throw $this->buildException($response);

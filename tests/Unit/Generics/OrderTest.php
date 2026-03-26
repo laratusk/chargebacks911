@@ -29,12 +29,12 @@ it('creates an order with required fields', function (): void {
 it('throws when required transactions is missing', function (): void {
     $order = new Order(['id' => 'order_001']);
     $order->toArray();
-})->throws(\InvalidArgumentException::class, 'transactions is required');
+})->throws(InvalidArgumentException::class, 'transactions is required');
 
 it('throws when id is missing', function (): void {
     $order = new Order(['transactions' => [makeTransaction()]]);
     $order->toArray();
-})->throws(\InvalidArgumentException::class, 'id is required');
+})->throws(InvalidArgumentException::class, 'id is required');
 
 it('serializes to array correctly', function (): void {
     $order = new Order([

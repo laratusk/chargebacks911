@@ -7,7 +7,7 @@ namespace Laratusk\Chargebacks911\Generics;
 use Laratusk\Chargebacks911\ChargeBackAbstract;
 
 /**
- * @property \Laratusk\Chargebacks911\Generics\Address $address An object containing address details
+ * @property Address $address An object containing address details
  * @property string $company Company name
  * @property string $contact_first_name Contact's first name
  * @property string $contact_last_name Contact's last name

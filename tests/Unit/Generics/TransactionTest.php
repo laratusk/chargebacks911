@@ -26,7 +26,7 @@ it('throws when required field is missing', function (): void {
         'settlement_amount' => '99.99',
     ]);
     $transaction->toArray();
-})->throws(\InvalidArgumentException::class, 'settlement_date is required');
+})->throws(InvalidArgumentException::class, 'settlement_date is required');
 
 it('accepts card object', function (): void {
     $card = new Card(['type' => 'Visa', 'exp_month' => '12', 'exp_year' => '2026']);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Laratusk\Chargebacks911\Exceptions\AuthenticationException;
 use Laratusk\Chargebacks911\Generics\Order;
 use Laratusk\Chargebacks911\Generics\Transaction;
 use Laratusk\Chargebacks911\Resources\OrderResource;
@@ -76,4 +77,4 @@ it('throws authentication exception on 401', function (): void {
     ]);
 
     (new OrderResource)->add(makeOrder());
-})->throws(\Laratusk\Chargebacks911\Exceptions\AuthenticationException::class);
+})->throws(AuthenticationException::class);

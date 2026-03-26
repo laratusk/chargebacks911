@@ -58,4 +58,4 @@ it('update patches an alert', function (): void {
 it('throws when outcome_id is missing', function (): void {
     $alertUpdate = new AlertUpdate(['customer_name' => 'Test']);
     $alertUpdate->toArray();
-})->throws(\InvalidArgumentException::class, 'outcome_id is required');
+})->throws(InvalidArgumentException::class, 'outcome_id is required');

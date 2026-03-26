@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Laratusk\Chargebacks911\Exceptions\NotFoundException;
 use Laratusk\Chargebacks911\Generics\ChargeResponse;
 use Laratusk\Chargebacks911\Resources\ChargebackResource;
 
@@ -55,4 +56,4 @@ it('throws on api error', function (): void {
     ]);
 
     (new ChargebackResource)->list();
-})->throws(\Laratusk\Chargebacks911\Exceptions\NotFoundException::class);
+})->throws(NotFoundException::class);

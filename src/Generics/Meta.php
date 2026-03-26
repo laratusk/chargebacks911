@@ -7,8 +7,8 @@ namespace Laratusk\Chargebacks911\Generics;
 use Laratusk\Chargebacks911\ChargeBackAbstract;
 
 /**
- * @property \Laratusk\Chargebacks911\Generics\Customer $customer Customer identification and history data
- * @property \Laratusk\Chargebacks911\Generics\Screenshots $screenshots Order-related screenshots
+ * @property Customer $customer Customer identification and history data
+ * @property Screenshots $screenshots Order-related screenshots
  */
 final class Meta extends ChargeBackAbstract
 {

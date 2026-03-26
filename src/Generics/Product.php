@@ -8,7 +8,7 @@ use Laratusk\Chargebacks911\ChargeBackAbstract;
 
 /**
  * @property string $description Product description
- * @property \Laratusk\Chargebacks911\Generics\Digital $digital An object containing digital product details
+ * @property Digital $digital An object containing digital product details
  * @property bool $has_rma Whether the product has an RMA (Return Merchandise Authorization)
  * @property string $id Product ID
  * @property string $is_upsell Whether the product is an upsell
@@ -21,7 +21,7 @@ use Laratusk\Chargebacks911\ChargeBackAbstract;
  * @property string $recurring_date Recurring date
  * @property string $rma_id RMA ID
  * @property string $rma_reason RMA reason
- * @property \Laratusk\Chargebacks911\Generics\Shipping $shipping An object containing shipping details
+ * @property Shipping $shipping An object containing shipping details
  * @property string $sku Product SKU
  * @property string $subscription_desc Subscription description
  * @property string $subscription_id Subscription ID

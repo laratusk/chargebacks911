@@ -44,11 +44,11 @@ it('returns null for unset optional property', function (): void {
 
 it('throws on unknown property set', function (): void {
     $this->concrete->unknown = 'value';
-})->throws(\InvalidArgumentException::class);
+})->throws(InvalidArgumentException::class);
 
 it('throws on invalid type', function (): void {
     $this->concrete->count = 'not-an-int';
-})->throws(\InvalidArgumentException::class);
+})->throws(InvalidArgumentException::class);
 
 it('converts to array', function (): void {
     $arr = $this->concrete->toArray();
@@ -65,7 +65,7 @@ it('converts to json', function (): void {
 it('throws when required field is missing on toArray', function (): void {
     $obj = new RequiredOnlyStub([]);
     $obj->toArray();
-})->throws(\InvalidArgumentException::class);
+})->throws(InvalidArgumentException::class);
 
 it('accepts null for nullable property', function (): void {
     $this->concrete->optional = null;

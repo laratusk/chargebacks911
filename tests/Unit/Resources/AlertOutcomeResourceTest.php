@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Laratusk\Chargebacks911\Exceptions\RateLimitException;
 use Laratusk\Chargebacks911\Generics\AlertOutcome;
 use Laratusk\Chargebacks911\Resources\AlertOutcomeResource;
 
@@ -40,4 +41,4 @@ it('throws on api error', function (): void {
     ]);
 
     (new AlertOutcomeResource)->list();
-})->throws(\Laratusk\Chargebacks911\Exceptions\RateLimitException::class);
+})->throws(RateLimitException::class);

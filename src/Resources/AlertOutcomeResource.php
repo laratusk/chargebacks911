@@ -29,7 +29,7 @@ final class AlertOutcomeResource
         $response = Http::withToken($this->bearerToken())->get($this->url('alert_outcomes'), $params);
 
         if ($response->successful()) {
-            return $response->collect('data')->map(fn ($item): \Laratusk\Chargebacks911\Generics\AlertOutcome => new AlertOutcome($item));
+            return $response->collect('data')->map(fn ($item): AlertOutcome => new AlertOutcome($item));
         }
 
         throw $this->buildException($response);
