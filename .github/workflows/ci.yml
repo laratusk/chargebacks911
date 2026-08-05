@@ -70,5 +70,12 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "illuminate/support:${{ matrix.laravel }}" "illuminate/http:${{ matrix.laravel }}" "illuminate/cache:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-          composer update --prefer-dist --no-interaction
+          UPDATE_FLAGS=""
+          if [[ "${{ matrix.laravel }}" == "11.*" ]]; then
+            # Testbench 9 pulls in laravel/framework 11, which no longer receives
+            # security patches, so Composer's policy blocking refuses to install it.
+            # Compatibility is still verified here.
+            UPDATE_FLAGS="--no-blocking"
+          fi
+          composer update --prefer-dist --no-interaction $UPDATE_FLAGS
       - run: composer test
