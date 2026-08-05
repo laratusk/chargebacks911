@@ -1,6 +1,5 @@
 {
     "name": "laratusk/chargebacks911",
-    "version": "1.0.0",
     "description": "ChargeBack 911 integration for Laravel",
     "type": "library",
     "license": "MIT",

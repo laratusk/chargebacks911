@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-08-05
+
+### Fixed
+
+- Remove the hardcoded `version` field from `composer.json`. The field was pinned to `1.0.0` and
+  overrode the version Packagist derives from git tags, so every tag published since v1.0.0 was
+  announced as `1.0.0` and Packagist only ever listed a single release. As a result the Laravel 13
+  support added in v1.1.0 and the Laravel 10 removal in v1.2.0 were never installable; installing
+  the package always resolved to the v1.0.0 code, whose `illuminate/*` constraints were
+  `^12.0|^11.0|^10.0`. The git tag is now the single source of truth for the package version, and
+  this release is the first to expose Laravel 13 support through Packagist.
+
 ## [1.2.0] - 2026-03-26
 
 ### Added
@@ -57,7 +69,8 @@ Initial release of the Chargebacks911 API client for Laravel.
 - Pest test suite with recorded API fixtures, and a CI workflow running Pint, PHPStan, Rector
   and the tests on PHP 8.2-8.4.
 
-[Unreleased]: https://github.com/laratusk/chargebacks911/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/laratusk/chargebacks911/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/laratusk/chargebacks911/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/laratusk/chargebacks911/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/laratusk/chargebacks911/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/laratusk/chargebacks911/releases/tag/v1.0.0
